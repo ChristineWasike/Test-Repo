@@ -73,5 +73,9 @@ app.listen((process.env.PORT || 5000));
 
 // server index page
 app.get("/", function (req, res) {
-    res.send("Deploy");
+    if (req.query['hub.verify_token'] === VERIFY_TOKEN) {
+        // res.send("hey there boi");
+        return res.send(req.query['hub.challenge'])
+    }
+    res.send('wrong token')
 });
